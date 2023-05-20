@@ -1,80 +1,95 @@
 <!DOCTYPE html>
 <html>
-
-  <head>
+<head>
     <title>Coupons for Dad</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <style>
-      body {
-        background-color: #f5f5f5;
-      }
+        body {
+            background-color: #f5f5f5;
+        }
 
-      .container {
-        max-width: 800px;
-      }
+        .container {
+            max-width: 800px;
+        }
 
-      .header {
-        padding: 30px 0;
-        text-align: center;
-      }
+        .header {
+            padding: 30px 0;
+            text-align: center;
+        }
 
-      .btn-custom {
-        margin: 15px;
-        font-size: 20px;
-        width: 200px;
-      }
-
+        .btn-custom {
+            margin: 15px;
+            font-size: 20px;
+            width: 200px;
+        }
     </style>
-  </head>
-
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="header">
-        <h1>Coupons for Dad</h1>
-      </div>
+        <div class="header">
+            <h1>Coupons for Dad</h1>
+        </div>
 
-      <div class="row justify-content-center">
-        <button id="button1" class="btn btn-primary btn-custom">Free Run</button>
-        <button id="button2" class="btn btn-primary btn-custom">Free Get Off the Computer</button>
-        <button id="button3" class="btn btn-primary btn-custom">Make Dinner</button>
-        <button id="button4" class="btn btn-primary btn-custom">Get Off Your Phone at 8PM Today</button>
-        <button id="button5" class="btn btn-primary btn-custom">Free Run</button>
-        <button id="button6" class="btn btn-primary btn-custom">Do One of Your Chores/Help You Out</button>
-      </div>
+        <div class="row justify-content-center">
+            <button id="button1" class="btn btn-primary btn-custom">Free Run</button>
+            <button id="button2" class="btn btn-primary btn-custom">Free Get Off the Computer</button>
+            <button id="button3" class="btn btn-primary btn-custom">Make Dinner</button>
+            <button id="button4" class="btn btn-primary btn-custom">Get Off Your Phone at 8PM Today</button>
+            <button id="button5" class="btn btn-primary btn-custom">Free Run</button>
+            <button id="button6" class="btn btn-primary btn-custom">Do One of Your Chores/Help You Out</button>
+            <button id="resetButton" class="btn btn-warning btn-custom" onclick="resetPrompt()">Reset Coupons</button>
+        </div>
     </div>
 
     <script>
-      window.onload = function() {
-        for (let i = 1; i <= 6; i++) {
-          const buttonId = 'button' + i;
-          const button = document.getElementById(buttonId);
-          button.onclick = function() {
-            this.disabled = true;
-            this.className = "btn btn-success btn-custom";
-            localStorage.setItem(buttonId, true);
-          }
+        window.onload = function() {
+            for (let i = 1; i <= 6; i++) {
+                const buttonId = 'button' + i;
+                const button = document.getElementById(buttonId);
+                button.onclick = function() {
+                    this.disabled = true;
+                    this.className = "btn btn-success btn-custom";
+                    localStorage.setItem(buttonId, true);
+                }
 
-          if (localStorage.getItem(buttonId)) {
-            button.disabled = true;
-            button.className = "btn btn-success btn-custom";
-          }
+                if (localStorage.getItem(buttonId)) {
+                    button.disabled = true;
+                    button.className = "btn btn-success btn-custom";
+                }
+            }
+        };
+
+        function resetPrompt() {
+            const password = prompt("Enter the password to reset:");
+            if (password === 'Joseph') {
+                resetButtons();
+            } else {
+                alert('Incorrect password.');
+            }
         }
-      };
 
-      function changeButtonText(id, newText) {
-        const button = document.getElementById(id);
-        button.textContent = newText;
-      }
+        function resetButtons() {
+            for (let i = 1; i <= 6; i++) {
+                const buttonId = 'button' + i;
+                const button = document.getElementById(buttonId);
+                button.disabled = false;
+                button.className = "btn btn-primary btn-custom";
+                localStorage.removeItem(buttonId);
+            }
+        }
 
-      // Usage: 
-      // changeButtonText('button1', 'New Name');
-      // Uncomment and replace the parameters to change button text as you want
+        function changeButtonText(id, newText) {
+            const button = document.getElementById(id);
+            button.textContent = newText;
+        }
 
+        // Usage: 
+        // changeButtonText('button1', 'New Name');
+        // Uncomment and replace the parameters to change button text as you want
     </script>
 
-  </body>
-
+</body>
 </html>
